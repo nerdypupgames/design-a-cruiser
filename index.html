@@ -3,6 +3,7 @@
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="js/html2canvas.min.js"></script>
 <script src="js/jquery-ui.min.js"></script>
+<script src="js/jquery.ui.touch-punch.min.js"></script>
 <style>
 html, body
 {
@@ -31,7 +32,7 @@ a
 
 a:hover
 {
-	color:white;
+	color:#666;
 }
 
 ol
@@ -174,7 +175,7 @@ div#controls
 
 div#instructions
 {
-	
+	margin-top:30px;
 	color:white;
 }
 
@@ -215,6 +216,19 @@ div.modal-content
     color: #000;
     text-decoration: none;
     cursor: pointer;
+}
+
+#img-out
+{
+	display:inline-block;
+}
+
+#save_instructions
+{
+	display:inline-block;
+	vertical-align:top;
+	width:250px;
+	padding-left:10px;
 }
 
 .pawn{
@@ -402,6 +416,27 @@ $("#btnReset").click(function() {
 <div class="modal-content">
 <span class="close">&times;</span>
 <div id="img-out"></div>
+
+<div id='save_instructions'>
+<h4>SEND US YOUR CRUISER!</h4>
+To send your cruiser to design to Nerdy Pup Games:
+<ol>
+<li>Right-click on the image to the left, and choose "Save As..."</li>
+<li>Send an email to <a href='mailto:nerdypupgames@gmail.com'>nerdypupgames@gmail.com</a> with the following informaton:
+<ul>
+<li>Your name</li>
+<li>A short title or description for your cruiser design</li>
+<li>Your saved image as an attachment</li>
+</ul>
+</li>
+</ol>
+
+<div>
+Nerdy Pup will choose the 3 best designs we receive, and include them in the Space Princess rules with a designer credit for the person submitting the design.
+</div>
+
+</div>
+
 </div>
 </div>
 
@@ -549,7 +584,7 @@ on <img src='https://nerdypupgames.github.io/design-a-cruiser/images/igg_logo.pn
 </div>
 
 <div id='instructions'>
-<h3>Instructions:</h3>
+<h3>INSTRUCTIONS:</h3>
 <ol>
 <li>Click on squares to cycle through tile types: Corridor > Door > Escape Pod > Blank.</li>
 <li>Drag pawns (Space Princess, Dark Zealot, and Troopers) to a starting position on the grid.</li>
