@@ -1,0 +1,475 @@
+<html>
+<head>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="js/html2canvas.min.js"></script>
+<script src="js/jquery-ui.min.js"></script>
+<style>
+html, body
+{
+	height:100%;
+	margin:0px;
+}
+
+body
+{
+	/*background-image:url("images/paper.jpg");*/
+	background-color:#222;
+	background-color:#0fe9d9;
+}
+
+.error
+{
+	color:#dd0000;
+}
+
+#canvas
+{
+	width:800px;
+	margin:auto;
+}
+
+#pawn_tray
+{
+	/*width:765px;
+	margin:auto;*/
+	width:60px;
+	float:left;
+}
+
+a.card
+{
+	display:inline-block;
+	margin:5px;
+	width:75px;
+	height:75px;
+}
+
+img.card
+{
+	width:75px;
+	height:75px;
+	border-radius: 5px;
+	border:1px solid #555;
+}
+
+#title
+{
+	padding-top:5px;
+	padding-left:5px;
+	height:60px;
+	line-height:50px;
+	background-color:#0fe9d9;
+	border-bottom: 10px solid white;
+}
+
+#title img
+{
+	height:50px;
+}
+
+#footer
+{
+	padding-top:5px;
+	padding-left:5px;	
+}
+
+div#tableau
+{
+	display:table-cell;
+	width:80%;
+	background-color:#222;
+}
+
+div#controls
+{
+	vertical-align:top;
+	display:table-cell;
+	width:auto;
+	background-color:#ef5b11;
+}
+
+div#instructions
+{
+	padding:10px;
+}
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 20px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+div.modal-content
+{
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+/* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.pawn{
+	height:50px;
+	position:absolute;
+}
+
+.counter_column
+{
+	display:inline-block;
+	font-size:30pt;
+	text-align:center;
+	border:1px solid #fefefe;
+	border-radius: 5px;
+	padding:2px;
+	background-color:#fff;
+}
+
+</style>
+<script>
+
+$(document).ready(function(){
+
+var doorCount = 12;
+var corridorCount = 13;
+var podCount = 2;
+
+function resetStarCruiser() {
+	$(".card").html("<img class='card' src='images/blank_dark.png' alt='blank' />");
+
+	$("#cell_33 .card").html("<img class='card' src='images/corridor.png' alt='corridor' />");
+	$("#cell_34 .card").html("<img class='card' src='images/door.png' alt='door' />");
+	$("#cell_35 .card").html("<img class='card' src='images/corridor.png' alt='corridor' />");
+	$("#cell_36 .card").html("<img class='card' src='images/door.png' alt='door' />");
+	$("#cell_37 .card").html("<img class='card' src='images/corridor.png' alt='corridor' />");
+	
+	$("#cell_43 .card").html("<img class='card' src='images/door.png' alt='door' />");
+	$("#cell_44 .card").html("<img class='card' src='images/corridor.png' alt='corridor' />");
+	$("#cell_45 .card").html("<img class='card' src='images/door.png' alt='door' />");
+	$("#cell_46 .card").html("<img class='card' src='images/corridor.png' alt='corridor' />");
+	$("#cell_47 .card").html("<img class='card' src='images/door.png' alt='door' />");
+	
+	$("#cell_53 .card").html("<img class='card' src='images/corridor.png' alt='corridor' />");
+	$("#cell_54 .card").html("<img class='card' src='images/door.png' alt='door' />");
+	$("#cell_55 .card").html("<img class='card' src='images/corridor.png' alt='corridor' />");
+	$("#cell_56 .card").html("<img class='card' src='images/door.png' alt='door' />");
+	$("#cell_57 .card").html("<img class='card' src='images/corridor.png' alt='corridor' />");
+	
+	$("#cell_63 .card").html("<img class='card' src='images/door.png' alt='door' />");
+	$("#cell_64 .card").html("<img class='card' src='images/corridor.png' alt='corridor' />");
+	$("#cell_65 .card").html("<img class='card' src='images/door.png' alt='door' />");
+	$("#cell_66 .card").html("<img class='card' src='images/corridor.png' alt='corridor' />");
+	$("#cell_67 .card").html("<img class='card' src='images/door.png' alt='door' />");
+	
+	$("#cell_73 .card").html("<img class='card' src='images/corridor.png' alt='corridor' />");
+	$("#cell_74 .card").html("<img class='card' src='images/door.png' alt='door' />");
+	$("#cell_75 .card").html("<img class='card' src='images/corridor.png' alt='corridor' />");
+	$("#cell_76 .card").html("<img class='card' src='images/door.png' alt='door' />");
+	$("#cell_77 .card").html("<img class='card' src='images/corridor.png' alt='corridor' />");
+	
+	$("#cell_58 .card").html("<img class='card' src='images/pod.png' alt='pod' />");
+	$("#cell_85 .card").html("<img class='card' src='images/pod.png' alt='pod' />");
+	
+	var destination = $('#cell_66').offset();
+	$('#zealot').css({top: destination.top+10, left: destination.left+10});
+
+	destination = $('#cell_73').offset();
+	$('#trooper1').css({top: destination.top+10, left: destination.left+10});
+
+	destination = $('#cell_37').offset();
+	$('#trooper2').css({top: destination.top+10, left: destination.left+10});
+
+	destination = $('#cell_33').offset();
+	$('#princess').css({top: destination.top+10, left: destination.left+10});
+	
+	changeCount("door", 12);
+	changeCount("corridor", 13);
+	changeCount("pod", 2);
+}
+
+function changeCount(field, mode) {
+	var $count_field = $('#'+field+"Count");
+	var $other_field;
+	var count = parseInt($count_field.html(), 10);
+	var other_count;
+	
+	if(mode == '+'){
+		count++;
+	}
+	else if(mode == '-') {
+		count--;
+	}
+	else{
+		count = mode;
+	}
+	
+	$count_field.html(count);
+		
+	if( field == "pod" ){
+		if( count > 2 ){
+			$count_field.addClass("error");
+		}
+		else {
+			$count_field.removeClass("error");
+		}
+	}
+	else {
+		if( field == "corridor"){ $other_field = $("#doorCount"); }
+		else if( field == "door"){ $other_field = $("#corridorCount"); }
+		other_count = parseInt($other_field.html(), 10);
+	
+		if( count + other_count > 25 ){
+			$count_field.addClass("error");
+			$other_field.addClass("error");
+		}
+		else {
+			$count_field.removeClass("error");
+			$other_field.removeClass("error");
+		}
+	}	
+}
+
+resetStarCruiser();
+
+/*$( window ).resize(function() { resetStarCruiser(); });*/
+
+$(".card").click(function () {
+    //$(this).css("background-image", "url('images/door.png')");
+	var alt = $(this).children("img").attr("alt");
+	if( alt == 'blank' ) {
+		$(this).html("<img class='card' src='images/corridor.png' alt='corridor' />");
+		changeCount("corridor","+");
+	}
+	if( alt == 'corridor' ) {
+		$(this).html("<img class='card' src='images/door.png' alt='door' />");
+		changeCount("door","+");
+		changeCount("corridor","-");
+	}
+	else if (alt == 'door') {
+		$(this).html("<img class='card' src='images/pod.png' alt='pod' />");
+		changeCount("pod","+");
+		changeCount("door","-");
+	}
+	else if (alt == 'pod') {
+		$(this).html("<img class='card' src='images/blank_dark.png' alt='blank' />");
+		changeCount("pod","-");
+	}
+	else {
+		$(this).html("<img class='card' src='images/corridor.png' alt='corridor' />");
+	}
+} );
+
+$("#btnSave").click(function() {
+	// check if any count fields are in error
+	if( $(".counter").hasClass("error") ){
+		alert("Your design contains too many cards!");
+	}
+	else {
+		$( ".modal" ).toggle();
+		html2canvas(document.querySelector("#canvas")).then(canvas => {
+		//document.body.appendChild(canvas)
+		$( "#img-out" ).append(canvas)
+		});
+	}
+});
+
+$(".close").click(function() {
+	$( ".modal" ).toggle();
+	$( "#img-out" ).empty();
+});
+
+$( ".pawn" ).draggable();
+
+$("#btnReset").click(function() {
+	resetStarCruiser();
+});
+	
+
+});
+</script>
+</head>
+<body>
+
+<div class='modal'>
+<div class="modal-content">
+<span class="close">&times;</span>
+<div id="img-out"></div>
+</div>
+</div>
+
+<div id='title'>
+<img src='images/logo.png' /> Design A Starcruiser
+</div>
+
+<div id='tableau'>
+
+<div id='canvas'>
+<img class='pawn' id='zealot' src='images/black_pawn.png' />
+<img class='pawn' id='princess' src='images/white_pawn.png' />
+<img class='pawn' id='trooper1' src='images/orange_pawn.png' />
+<img class='pawn' id='trooper2' src='images/orange_pawn.png' />
+
+<table>
+<tr>
+<td id='cell_11'><a class='card'></a> </td>
+<td id='cell_12'><a class='card'></a> </td>
+<td id='cell_13'><a class='card'></a> </td>
+<td id='cell_14'><a class='card'></a> </td>
+<td id='cell_15'><a class='card'></a> </td>
+<td id='cell_16'><a class='card'></a> </td>
+<td id='cell_17'><a class='card'></a> </td>
+<td id='cell_18'><a class='card'></a> </td>
+<td id='cell_19'><a class='card'></a> </td>
+</tr>
+
+<tr>
+<td id='cell_21'><a class='card'></a> </td>
+<td id='cell_22'><a class='card'></a> </td>
+<td id='cell_23'><a class='card'></a> </td>
+<td id='cell_24'><a class='card'></a> </td>
+<td id='cell_25'><a class='card'></a> </td>
+<td id='cell_26'><a class='card'></a> </td>
+<td id='cell_27'><a class='card'></a> </td>
+<td id='cell_28'><a class='card'></a> </td>
+<td id='cell_29'><a class='card'></a> </td>
+</tr>
+
+<tr>
+<td id='cell_31'><a class='card'></a> </td>
+<td id='cell_32'><a class='card'></a> </td>
+<td id='cell_33'><a class='card'></a> </td>
+<td id='cell_34'><a class='card'></a> </td>
+<td id='cell_35'><a class='card'></a> </td>
+<td id='cell_36'><a class='card'></a> </td>
+<td id='cell_37'><a class='card'></a> </td>
+<td id='cell_38'><a class='card'></a> </td>
+<td id='cell_39'><a class='card'></a> </td>
+</tr>
+
+<tr>
+<td id='cell_41'><a class='card'></a> </td>
+<td id='cell_42'><a class='card'></a> </td>
+<td id='cell_43'><a class='card'></a> </td>
+<td id='cell_44'><a class='card'></a> </td>
+<td id='cell_45'><a class='card'></a> </td>
+<td id='cell_46'><a class='card'></a> </td>
+<td id='cell_47'><a class='card'></a> </td>
+<td id='cell_48'><a class='card'></a> </td>
+<td id='cell_49'><a class='card'></a> </td>
+</tr>
+
+<tr>
+<td id='cell_51'><a class='card'></a> </td>
+<td id='cell_52'><a class='card'></a> </td>
+<td id='cell_53'><a class='card'></a> </td>
+<td id='cell_54'><a class='card'></a> </td>
+<td id='cell_55'><a class='card'></a> </td>
+<td id='cell_56'><a class='card'></a> </td>
+<td id='cell_57'><a class='card'></a> </td>
+<td id='cell_58'><a class='card'></a> </td>
+<td id='cell_59'><a class='card'></a> </td>
+</tr>
+
+<tr>
+<td id='cell_61'><a class='card'></a> </td>
+<td id='cell_62'><a class='card'></a> </td>
+<td id='cell_63'><a class='card'></a> </td>
+<td id='cell_64'><a class='card'></a> </td>
+<td id='cell_65'><a class='card'></a> </td>
+<td id='cell_66'><a class='card'></a> </td>
+<td id='cell_67'><a class='card'></a> </td>
+<td id='cell_68'><a class='card'></a> </td>
+<td id='cell_69'><a class='card'></a> </td>
+</tr>
+
+<tr>
+<td id='cell_71'><a class='card'></a> </td>
+<td id='cell_72'><a class='card'></a> </td>
+<td id='cell_73'><a class='card'></a> </td>
+<td id='cell_74'><a class='card'></a> </td>
+<td id='cell_75'><a class='card'></a> </td>
+<td id='cell_76'><a class='card'></a> </td>
+<td id='cell_77'><a class='card'></a> </td>
+<td id='cell_78'><a class='card'></a> </td>
+<td id='cell_79'><a class='card'></a> </td>
+</tr>
+
+<tr>
+<td id='cell_81'><a class='card'></a> </td>
+<td id='cell_82'><a class='card'></a> </td>
+<td id='cell_83'><a class='card'></a> </td>
+<td id='cell_84'><a class='card'></a> </td>
+<td id='cell_85'><a class='card'></a> </td>
+<td id='cell_86'><a class='card'></a> </td>
+<td id='cell_87'><a class='card'></a> </td>
+<td id='cell_88'><a class='card'></a> </td>
+<td id='cell_89'><a class='card'></a> </td>
+</tr>
+
+<tr>
+<td id='cell_91'><a class='card'></a> </td>
+<td id='cell_92'><a class='card'></a> </td>
+<td id='cell_93'><a class='card'></a> </td>
+<td id='cell_94'><a class='card'></a> </td>
+<td id='cell_95'><a class='card'></a> </td>
+<td id='cell_96'><a class='card'></a> </td>
+<td id='cell_97'><a class='card'></a> </td>
+<td id='cell_98'><a class='card'></a> </td>
+<td id='cell_99'><a class='card'></a> </td>
+</tr>
+</table>
+</div>
+</div>
+
+<div id='controls'>
+
+<div id='instructions'>
+
+<div>
+<div class='counter_column'><div class='counter' id='doorCount'>12</div><img class='card' src='images/door.png' /></div>
+<div class='counter_column'><div class='counter' id='corridorCount'>13</div><img class='card' src='images/corridor.png' /></div>
+<div class='counter_column'><div class='counter' id='podCount'>2</div><img class='card' src='images/pod.png' /></div>
+</div>
+
+<div>
+<button id='btnSave'>Save</button>
+<button id='btnReset'>Reset</button>
+</div>
+
+<h3>Instructions:</h3>
+<ol>
+<li>Click on squares to cycle through tile types: Corridor > Door > Escape Pod > Blank.</li>
+<li>Drag pawns (Space Princess, Dark Zealot, and Troopers) to a starting position on the grid.</li>
+<li>Click save to export your layout as an image and submit to Nerdy Pup Games!</li>
+</ol>
+</div>
+</div>
+
+<div id='footer'>
+</div>
+
+</body>
+</html>
