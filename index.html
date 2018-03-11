@@ -15,11 +15,49 @@ body
 	/*background-image:url("https://nerdypupgames.github.io/design-a-cruiser/images/paper.jpg");*/
 	background-color:#222;
 	background-color:#0fe9d9;
+	font-family: Helvetica;
 }
 
 .error
 {
 	color:#dd0000;
+}
+
+a
+{
+	color:black;
+}
+
+a:hover
+{
+	color:white;
+}
+
+ol
+{
+	line-height: 25px;
+}
+
+li
+{
+	margin: 0 0 15px 0;
+}
+
+button
+{
+	margin-top:20px;
+	width:260px;
+	padding:10px;
+	color:white;
+	background-color:#333;
+	border:2px solid white;
+	font-weight:bold;
+}
+
+button:hover
+{
+	color:#333;
+	background-color:white;
 }
 
 #canvas
@@ -57,20 +95,56 @@ img.card
 	padding-top:5px;
 	padding-left:5px;
 	height:60px;
-	line-height:50px;
+	line-height:55px;
 	background-color:#0fe9d9;
 	border-bottom: 10px solid white;
+	color:white;
+	font-size: 24pt;
+	font-weight:bold;
 }
 
 #title img
 {
 	height:50px;
+	vertical-align:middle;
+}
+
+#title #calltoaction
+{
+	display:inline-block;
+	float:right;
+	font-size:12pt;
+	padding-right:20px;
+}
+
+#title #calltoaction a
+{
+	background-color:#333;
+	color:white;
+	border: 2px solid white;
+	padding:10px;
+	text-decoration:none;
+}
+
+#title #calltoaction a:hover
+{
+	background-color:#ef5b11;
+	color:white;
+	border: 2px solid #ef5b11;
+	padding:10px;
+	text-decoration:none;
+}
+
+.igg
+{
+	color:#eb1478;
 }
 
 #footer
 {
-	padding-top:5px;
-	padding-left:5px;	
+	padding:10px;
+	color:white;
+	font-size:10pt;
 }
 
 div#tableau
@@ -86,11 +160,13 @@ div#controls
 	display:table-cell;
 	width:auto;
 	background-color:#ef5b11;
+	padding:20px;
 }
 
 div#instructions
 {
-	padding:10px;
+	
+	color:white;
 }
 
 /* The Modal (background) */
@@ -321,7 +397,13 @@ $("#btnReset").click(function() {
 </div>
 
 <div id='title'>
-<img src='https://nerdypupgames.github.io/design-a-cruiser/images/logo.png' /> Design A Starcruiser
+<img src='https://nerdypupgames.github.io/design-a-cruiser/images/logo.png' /> DESIGN-A-CRUISER
+
+<div id='calltoaction'>
+<a href='https://igg.me/at/spaceprincess'>BACK THE GAME</a>
+on <span class='igg'>Indiegogo</span> now!
+</div>
+
 </div>
 
 <div id='tableau'>
@@ -446,8 +528,6 @@ $("#btnReset").click(function() {
 
 <div id='controls'>
 
-<div id='instructions'>
-
 <div>
 <div class='counter_column'><div class='counter' id='doorCount'>12</div><img class='card' src='https://nerdypupgames.github.io/design-a-cruiser/images/door.png' /></div>
 <div class='counter_column'><div class='counter' id='corridorCount'>13</div><img class='card' src='https://nerdypupgames.github.io/design-a-cruiser/images/corridor.png' /></div>
@@ -455,20 +535,25 @@ $("#btnReset").click(function() {
 </div>
 
 <div>
-<button id='btnSave'>Save</button>
-<button id='btnReset'>Reset</button>
+<button id='btnSave'>SAVE</button>
+<button id='btnReset'>RESET</button>
 </div>
 
+<div id='instructions'>
 <h3>Instructions:</h3>
 <ol>
 <li>Click on squares to cycle through tile types: Corridor > Door > Escape Pod > Blank.</li>
 <li>Drag pawns (Space Princess, Dark Zealot, and Troopers) to a starting position on the grid.</li>
 <li>Click save to export your layout as an image and submit to Nerdy Pup Games!</li>
 </ol>
+
+Read the full <a href='https://nerdypupgames.github.io/design-a-cruiser/Space%20Princess%20Rule%20Sheet%20-%20Print%20Friendly.pdf' target='_blank'>Space Princess Rules</a>!
+
 </div>
 </div>
 
 <div id='footer'>
+&copy;2018 Nerdy Pup Games, LLC. 
 </div>
 
 </body>
