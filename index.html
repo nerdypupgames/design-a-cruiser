@@ -421,7 +421,9 @@ $(".close").click(function() {
 	$( "#img-out" ).empty();
 });
 
-$( ".pawn" ).draggable();
+$( ".pawn" ).draggable({
+containment: "parent"
+});
 
 $("#btnReset").click(function() {
 	resetStarCruiser();
