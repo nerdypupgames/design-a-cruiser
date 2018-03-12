@@ -1,3 +1,4 @@
+
 <html>
 <head>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
@@ -150,6 +151,12 @@ img.card
 	color:#eb1478;
 }
 
+.npg
+{
+	color:#0ea499;
+	font-weight:bold;
+}
+
 #footer
 {
 	padding:10px;
@@ -200,7 +207,7 @@ div.modal-content
     margin: auto;
     padding: 20px;
     border: 1px solid #888;
-    width: 80%;
+    width:1200px;
 }
 
 /* The Close Button */
@@ -221,14 +228,19 @@ div.modal-content
 #img-out
 {
 	display:inline-block;
+	width:820px;
 }
 
 #save_instructions
 {
 	display:inline-block;
 	vertical-align:top;
-	width:250px;
-	padding-left:10px;
+	width:300px;
+	height:85%;
+	padding:10px;
+	margin:10px;
+	border-radius: 5px;
+	border:1px solid #999;
 }
 
 .pawn{
@@ -251,6 +263,16 @@ div.modal-content
 <script>
 
 $(document).ready(function(){
+
+/*  $.ajaxSetup({ cache: true });
+  $.getScript('https://connect.facebook.net/en_US/sdk.js', function(){
+    FB.init({
+      appId: '{1831939493772097}',
+      version: 'v2.7' // or v2.1, v2.2, v2.3, ...
+    });     
+    $('#loginbutton,#feedbutton').removeAttr('disabled');
+    FB.getLoginStatus(updateStatusCallback);
+  });*/
 
 var doorCount = 12;
 var corridorCount = 13;
@@ -419,20 +441,15 @@ $("#btnReset").click(function() {
 
 <div id='save_instructions'>
 <h4>SEND US YOUR CRUISER!</h4>
-To send your cruiser to design to Nerdy Pup Games:
+To send your cruiser to design to <span class='npg'>Nerdy Pup Games</span>:
 <ol>
 <li>Right-click on the image to the left, and choose "Save As..."</li>
-<li>Send an email to <a href='mailto:nerdypupgames@gmail.com'>nerdypupgames@gmail.com</a> with the following informaton:
-<ul>
-<li>Your name</li>
-<li>A short title or description for your cruiser design</li>
-<li>Your saved image as an attachment</li>
-</ul>
+<li>Complete the contest form <a href='https://goo.gl/forms/gPtVLoB4UYcIg5lK2'>HERE</a>, and  upload your saved image to the form.
 </li>
 </ol>
-
 <div>
-Nerdy Pup will choose the 3 best designs we receive, and include them in the Space Princess rules with a designer credit for the person submitting the design.
+<p>Nerdy Pup Games will choose up to six winners from the designs we receive, and include them in the Space Princess rules with a designer credit for the contest winners.</p>
+<p>The deadline for the contest is <strong>March 26, 2018 at 11:59PM<strong>.
 </div>
 
 </div>
@@ -588,7 +605,7 @@ on <img src='https://nerdypupgames.github.io/design-a-cruiser/images/igg_logo.pn
 <ol>
 <li>Click on squares to cycle through tile types: Corridor > Door > Escape Pod > Blank.</li>
 <li>Drag pawns (Space Princess, Dark Zealot, and Troopers) to a starting position on the grid.</li>
-<li>Click save to export your layout as an image and submit to Nerdy Pup Games!</li>
+<li>Click save to submit your design to the <strong>Design-A-Cruiser Contest!</strong></li>
 </ol>
 
 Read the full <a href='https://nerdypupgames.github.io/design-a-cruiser/Space%20Princess%20Rule%20Sheet%20-%20Print%20Friendly.pdf' target='_blank'>Space Princess Rules</a>!
